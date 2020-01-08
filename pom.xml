@@ -14,13 +14,28 @@
     <name>cms</name>
     <description>Demo project for Spring Boot</description>
 
+
+    <!--<repositories>-->
+        <!--<repository>-->
+            <!--<id>maven-repo-github</id>-->
+            <!--&lt;!&ndash; /用户名/仓库名/分支名/&ndash;&gt;-->
+            <!--<url>https://github.com/nameused/maven-repo/develop/</url>-->
+            <!--<snapshots>-->
+                <!--<enabled>true</enabled>-->
+                <!--<updatePolicy>always</updatePolicy>-->
+            <!--</snapshots>-->
+        <!--</repository>-->
+    <!--</repositories>-->
+
     <properties>
         <java.version>1.8</java.version>
         <slf4j.version>1.7.25</slf4j.version>
         <docker.image.prefix>zmydocker</docker.image.prefix>
+        <github.global.server>github</github.global.server>
     </properties>
 
     <dependencies>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -86,14 +101,35 @@
             <optional>true</optional>
         </dependency>
 
+        <!-- 导入自定义的加密工具包-->
+        <dependency>
+            <groupId>org.crypto</groupId>
+            <artifactId>crypto</artifactId>
+            <version>0.1</version>
+        </dependency>
+
     </dependencies>
 
     <build>
         <plugins>
+
+            <!-- springboot 打包插件，会将类加载器及相关lib包打入到jar包中，打包doker镜像时，必须通过该插件打包-->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+
+            <!-- maven打包插件，不会将lib包打入到jar中，将自定义jar包上传至github时，必须通过该插件打包，不能使用spingboot提供的打包插件-->
+            <!--<plugin>-->
+                <!--<groupId>org.apache.maven.plugins</groupId>-->
+                <!--<artifactId>maven-compiler-plugin</artifactId>-->
+                <!--<version>3.6.1</version>-->
+                <!--<configuration>-->
+                    <!--<source>1.8</source>-->
+                    <!--<target>1.8</target>-->
+                <!--</configuration>-->
+            <!--</plugin>-->
+
             <!-- 打包为docker镜像的插件-->
             <plugin>
                 <groupId>com.spotify</groupId>
@@ -118,6 +154,53 @@
                     <registryUrl>https://index.docker.io/v1/</registryUrl>
                 </configuration>
             </plugin>
+
+            <!--将jar包发布到github的maven仓库插件-->
+            <plugin>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>2.8.1</version>
+                <configuration>
+                    <altDeploymentRepository>internal.repo::default::file://${project.build.directory}/maven-repo
+                    </altDeploymentRepository>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.github.github</groupId>
+                <artifactId>site-maven-plugin</artifactId>
+                <version>0.12</version>
+                <configuration>
+                    <message>Maven artifacts for ${project.version}</message>
+                    <noJekyll>true</noJekyll>
+                    <outputDirectory>${project.build.directory}/maven-repo</outputDirectory><!--本地jar地址-->
+                    <branch>refs/heads/develop</branch><!--分支的名称-->
+                    <merge>true</merge>
+                    <includes>
+                        <include>**/*</include>
+                    </includes>
+                    <repositoryName>maven-repo</repositoryName><!--对应github上创建的仓库名称 name-->
+                    <repositoryOwner>nameused</repositoryOwner><!--github 仓库所有者即登录用户名-->
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>site</goal>
+                        </goals>
+                        <phase>deploy</phase>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- maven-surefire-plugin -->
+            <plugin>
+                <inherited>true</inherited>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.21.0</version>
+                <configuration>
+                    <!-- 跳过测试 -->
+                    <skipTests>true</skipTests>
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
 
