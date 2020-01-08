@@ -16,15 +16,15 @@
 
 
     <!--<repositories>-->
-        <!--<repository>-->
-            <!--<id>maven-repo-github</id>-->
-            <!--&lt;!&ndash; /用户名/仓库名/分支名/&ndash;&gt;-->
-            <!--<url>https://github.com/nameused/maven-repo/develop/</url>-->
-            <!--<snapshots>-->
-                <!--<enabled>true</enabled>-->
-                <!--<updatePolicy>always</updatePolicy>-->
-            <!--</snapshots>-->
-        <!--</repository>-->
+    <!--<repository>-->
+    <!--<id>maven-repo-github</id>-->
+    <!--&lt;!&ndash; /用户名/仓库名/分支名/&ndash;&gt;-->
+    <!--<url>https://github.com/nameused/maven-repo/develop/</url>-->
+    <!--<snapshots>-->
+    <!--<enabled>true</enabled>-->
+    <!--<updatePolicy>always</updatePolicy>-->
+    <!--</snapshots>-->
+    <!--</repository>-->
     <!--</repositories>-->
 
     <properties>
@@ -121,20 +121,20 @@
 
             <!-- maven打包插件，不会将lib包打入到jar中，将自定义jar包上传至github时，必须通过该插件打包，不能使用spingboot提供的打包插件-->
             <!--<plugin>-->
-                <!--<groupId>org.apache.maven.plugins</groupId>-->
-                <!--<artifactId>maven-compiler-plugin</artifactId>-->
-                <!--<version>3.6.1</version>-->
-                <!--<configuration>-->
-                    <!--<source>1.8</source>-->
-                    <!--<target>1.8</target>-->
-                <!--</configuration>-->
+            <!--<groupId>org.apache.maven.plugins</groupId>-->
+            <!--<artifactId>maven-compiler-plugin</artifactId>-->
+            <!--<version>3.6.1</version>-->
+            <!--<configuration>-->
+            <!--<source>1.8</source>-->
+            <!--<target>1.8</target>-->
+            <!--</configuration>-->
             <!--</plugin>-->
 
             <!-- 打包为docker镜像的插件-->
             <plugin>
                 <groupId>com.spotify</groupId>
                 <artifactId>docker-maven-plugin</artifactId>
-                <version>0.4.14</version>
+                <version>1.0.0</version>
                 <configuration>
                     <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
                     <!--指定docker镜像的版本号-->
