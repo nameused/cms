@@ -15,21 +15,21 @@
     <description>Demo project for Spring Boot</description>
 
 
-    <!--<repositories>-->
-    <!--<repository>-->
-    <!--<id>maven-repo-github</id>-->
-    <!--&lt;!&ndash; /用户名/仓库名/分支名/&ndash;&gt;-->
-    <!--<url>https://github.com/nameused/maven-repo/develop/</url>-->
-    <!--<snapshots>-->
-    <!--<enabled>true</enabled>-->
-    <!--<updatePolicy>always</updatePolicy>-->
-    <!--</snapshots>-->
-    <!--</repository>-->
-    <!--</repositories>-->
+    <repositories>
+    <repository>
+    <id>maven-repo-github</id>
+    <!-- /用户名/仓库名/分支名/-->
+    <url>https://github.com/nameused/maven-repo/tree/develop</url>
+    <snapshots>
+    <enabled>true</enabled>
+    <updatePolicy>always</updatePolicy>
+    </snapshots>
+    </repository>
+    </repositories>
 
     <properties>
         <java.version>1.8</java.version>
-        <slf4j.version>1.7.25</slf4j.version>
+        <!--<slf4j.version>1.7.25</slf4j.version>-->
         <docker.image.prefix>zmydocker</docker.image.prefix>
         <github.global.server>github</github.global.server>
     </properties>
@@ -77,17 +77,17 @@
             <version>2.6.1</version>
         </dependency>
         <!--日志配置-->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>${slf4j.version}</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.slf4j</groupId>-->
+            <!--<artifactId>slf4j-api</artifactId>-->
+            <!--<version>${slf4j.version}</version>-->
+        <!--</dependency>-->
 
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <version>${slf4j.version}</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.slf4j</groupId>-->
+            <!--<artifactId>slf4j-log4j12</artifactId>-->
+            <!--<version>${slf4j.version}</version>-->
+        <!--</dependency>-->
         <!--分页插件-->
         <dependency>
             <groupId>com.github.pagehelper</groupId>
@@ -103,7 +103,7 @@
 
         <!-- 导入自定义的加密工具包-->
         <dependency>
-            <groupId>org.crypto</groupId>
+            <groupId>org.github</groupId>
             <artifactId>crypto</artifactId>
             <version>0.1</version>
         </dependency>
