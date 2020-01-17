@@ -13,26 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.cms.util;
+package com.github.cms.entity;
 
-import org.bouncycastle.util.encoders.Hex;
-import org.github.algorithm.international.hash.MD5;
-import org.github.common.exception.HashException;
+import java.io.Serializable;
 
 /**
  * @author zhangmingyang
- * @Date: 2020/1/9
+ * @Date: 2020/1/17
  * @company Dingxuan
  */
-public class Cryption {
+public class Role implements Serializable {
 
-    public byte[] getMD5() throws HashException {
-        MD5 md5=new MD5();
-        byte[] hash = md5.hash("123".getBytes());
-        return hash;
-    }
-
-    public static void main(String[] args) throws HashException {
-        System.out.println(Hex.toHexString(new Cryption().getMD5()));
-    }
 }

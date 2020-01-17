@@ -15,8 +15,11 @@
  */
 package com.github.cms.dao;
 
+import com.github.cms.entity.Permission;
 import com.github.cms.entity.User;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
@@ -25,11 +28,23 @@ import java.util.List;
  * @Date: 2020/1/6
  * @company Dingxuan
  */
-public interface UserRepository extends JpaRepository<User,String> {
+public interface UserRepository extends JpaRepository<User, String> {
     /**
      * 根据活动状态获取所有用户
+     *
      * @param integer
      * @return
      */
-    List<User> findAllUserByActiState(Integer integer);
+    List<User> findAllUserByStatus(Integer integer);
+
+    /**
+     * 通过用户名获取用户
+     *
+     * @param userName
+     * @return
+     */
+    User findUserByUserName(String userName);
+
+    @Query(value = "SELECT p.* FROM role_permission_relation r LEFT JOIN permission p ON r.permission_id = p.id WHERE r.role_id = ?",nativeQuery = true)
+    List<Permission> findPermissionList(Long roleId);
 }

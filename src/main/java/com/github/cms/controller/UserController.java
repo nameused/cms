@@ -43,7 +43,7 @@ public class UserController {
     @GetMapping(value = "/getAlluser", produces = {"application/json;charset=UTF-8"})
     public Object  getAllUser () {
 
-        List<User> allUser = userService.findAllUserByActiState();
+        List<User> allUser = userService.findAllUserByStatus();
         for (User user : allUser) {
             System.out.println(user);
         }

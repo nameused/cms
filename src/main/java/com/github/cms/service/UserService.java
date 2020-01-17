@@ -33,7 +33,11 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public List<User> findAllUserByActiState() {
-        return userRepository.findAllUserByActiState(User.ACTIVATION_SUCCESSFUL);
+    public List<User> findAllUserByStatus() {
+        return userRepository.findAllUserByStatus(User.STATUS);
+    }
+
+    public User findUserByUserName(String userName){
+        return  userRepository.findUserByUserName(userName);
     }
 }

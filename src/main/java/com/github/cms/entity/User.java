@@ -15,16 +15,15 @@
  */
 package com.github.cms.entity;
 
-import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
 
 /**
+ * 用户实体
+ *
  * @author zhangmingyang
  * @Date: 2020/1/6
  * @company Dingxuan
@@ -33,19 +32,65 @@ import java.util.Date;
 @Entity
 @Table(name = "user")
 public class User implements Serializable {
+    /**
+     * 自增ID
+     */
     @Id
-    @GeneratedValue(generator = "system-uuid")
-    @GenericGenerator(name = "system-uuid", strategy = "uuid")
-    private String userId;
+    private Long id;
+    /**
+     * 用户名
+     */
     private String userName;
-    private String userPassword;
-    private String userEmail;
-    private Integer actiState;
-    //激活成功与激活失败常量
-    public static final int ACTIVATION_SUCCESSFUL = 1;
-    public static final int ACTIVATION_UNSUCCESSFUL = 0;
-    private String actiCode;
-    private Date tokenExptime;
+    /**
+     * 真实名称
+     */
+    private String trueName;
+    /**
+     * 密码
+     */
+    private String password;
+    /**
+     * 性别
+     */
+    private String gender;
+    /**
+     * 头像
+     */
+    private String icon;
+    /**
+     * 邮箱
+     */
+    private String email;
+    /**
+     * 备注
+     */
+    private String note;
+    /**
+     * 角色ID
+     */
+    private Long roleId;
+    /**
+     * 创建时间
+     */
+    private Date createTime;
+    /**
+     * 登录时间
+     */
+    private Date login_time;
+    /**
+     * 激活状态 1为激活 0为禁用
+     */
+    private int status;
+
+    public static final int STATUS = 1;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getUserName() {
         return userName;
@@ -55,43 +100,101 @@ public class User implements Serializable {
         this.userName = userName;
     }
 
-    public String getUserPassword() {
-        return userPassword;
+    public String getTrueName() {
+        return trueName;
     }
 
-    public void setUserPassword(String userPassword) {
-        this.userPassword = userPassword;
+    public void setTrueName(String trueName) {
+        this.trueName = trueName;
     }
 
-    public String getUserEmail() {
-        return userEmail;
+    public String getPassword() {
+        return password;
     }
 
-    public void setUserEmail(String userEmail) {
-        this.userEmail = userEmail;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public Integer getActiState() {
-        return actiState;
+    public String getGender() {
+        return gender;
     }
 
-    public void setActiState(Integer actiState) {
-        this.actiState = actiState;
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
-    public String getActiCode() {
-        return actiCode;
+    public String getIcon() {
+        return icon;
     }
 
-    public void setActiCode(String actiCode) {
-        this.actiCode = actiCode;
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 
-    public Date getTokenExptime() {
-        return tokenExptime;
+    public String getEmail() {
+        return email;
     }
 
-    public void setTokenExptime(Date tokenExptime) {
-        this.tokenExptime = tokenExptime;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    public Long getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(Long roleId) {
+        this.roleId = roleId;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getLogin_time() {
+        return login_time;
+    }
+
+    public void setLogin_time(Date login_time) {
+        this.login_time = login_time;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", userName='" + userName + '\'' +
+                ", trueName='" + trueName + '\'' +
+                ", password='" + password + '\'' +
+                ", gender='" + gender + '\'' +
+                ", icon='" + icon + '\'' +
+                ", email='" + email + '\'' +
+                ", note='" + note + '\'' +
+                ", roleId=" + roleId +
+                ", createTime=" + createTime +
+                ", login_time=" + login_time +
+                ", status=" + status +
+                '}';
     }
 }
