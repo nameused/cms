@@ -13,32 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.cms.service;
-
-import com.github.cms.dao.UserRepository;
-import com.github.cms.entity.Permission;
-import com.github.cms.entity.User;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
-
+package com.github.cms.dao;
+import com.github.cms.entity.Role;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  * @author zhangmingyang
- * @Date: 2020/1/6
+ * @Date: 2020/1/19
  * @company Dingxuan
  */
-@Service
-public class UserService {
-    @Autowired
-    private UserRepository userRepository;
-
-    public List<User> findAllUserByStatus() {
-        return userRepository.findAllUserByStatus(User.STATUS);
-    }
-
-    public User findUserByUserName(String userName) {
-        return userRepository.findUserByUserName(userName);
-    }
+public interface RoleRepository extends JpaRepository<Role,Integer> {
 }

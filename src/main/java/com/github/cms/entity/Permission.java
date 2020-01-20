@@ -15,10 +15,11 @@
  */
 package com.github.cms.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import org.apache.ibatis.annotations.One;
+
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @author zhangmingyang
@@ -56,15 +57,15 @@ public class Permission implements Serializable {
     /**
      * 类型 0->目录；1->菜单；2->按钮（接口绑定权限）
      */
-    private String type;
+    private Integer type;
     /**
      * 状态 启用状态；0->禁用；1->启用
      */
-    private int status;
+    private Integer status;
     /**
      * 创建时间
      */
-    private String createTime;
+    private Date createTime;
     /**
      * 排序
      */
@@ -118,11 +119,11 @@ public class Permission implements Serializable {
         this.uri = uri;
     }
 
-    public String getType() {
+    public Integer getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(Integer type) {
         this.type = type;
     }
 
@@ -134,11 +135,15 @@ public class Permission implements Serializable {
         this.status = status;
     }
 
-    public String getCreateTime() {
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public Date getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(String createTime) {
+    public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 
@@ -159,9 +164,9 @@ public class Permission implements Serializable {
                 ", value='" + value + '\'' +
                 ", icon='" + icon + '\'' +
                 ", uri='" + uri + '\'' +
-                ", type='" + type + '\'' +
+                ", type=" + type +
                 ", status=" + status +
-                ", createTime='" + createTime + '\'' +
+                ", createTime=" + createTime +
                 ", sort=" + sort +
                 '}';
     }

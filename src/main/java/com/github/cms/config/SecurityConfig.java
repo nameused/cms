@@ -3,6 +3,11 @@ package com.github.cms.config;
 import com.github.cms.component.JwtAuthenticationTokenFilter;
 import com.github.cms.component.RestAuthenticationEntryPoint;
 import com.github.cms.component.RestfulAccessDeniedHandler;
+import com.github.cms.entity.CmsUserDetail;
+import com.github.cms.entity.Permission;
+import com.github.cms.entity.User;
+import com.github.cms.service.PermissionService;
+import com.github.cms.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -24,6 +29,8 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
+import java.util.List;
+
 /**
  * SpringSecurity的配置
  */
@@ -31,8 +38,10 @@ import org.springframework.web.filter.CorsFilter;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    //    @Autowired
-//    private UmsAdminService adminService;
+    @Autowired
+    private PermissionService permissionService;
+    @Autowired
+    private UserService userService;
     @Autowired
     private RestfulAccessDeniedHandler restfulAccessDeniedHandler;
     @Autowired
@@ -96,19 +105,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public UserDetailsService userDetailsService() {
         //获取登录用户信息
-//        return username -> {
-//            UmsAdmin admin = adminService.getAdminByUsername(username);
-//            if (admin != null) {
-//                List<UmsPermission> permissionList = adminService.getPermissionList(admin.getId());
-//                return new AdminUserDetails(admin, permissionList);
-//            }
-//            throw new UsernameNotFoundException("用户名或密码错误");
-//        };
-
-
-
-
-        return null;
+        return username -> {
+            User user = userService.findUserByUserName(username);
+            if (user != null) {
+                List<Permission> permissionList = permissionService.findPermissionList(user.getId());
+                return new CmsUserDetail(user, permissionList);
+            }
+            throw new UsernameNotFoundException("用户名或密码错误");
+        };
     }
 
     @Bean

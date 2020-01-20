@@ -13,32 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.cms.service;
+package com.github.cms.dao;
 
-import com.github.cms.dao.UserRepository;
 import com.github.cms.entity.Permission;
-import com.github.cms.entity.User;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-
 /**
  * @author zhangmingyang
- * @Date: 2020/1/6
+ * @Date: 2020/1/19
  * @company Dingxuan
  */
-@Service
-public class UserService {
-    @Autowired
-    private UserRepository userRepository;
-
-    public List<User> findAllUserByStatus() {
-        return userRepository.findAllUserByStatus(User.STATUS);
-    }
-
-    public User findUserByUserName(String userName) {
-        return userRepository.findUserByUserName(userName);
-    }
+@Repository
+public interface PermissionRepository extends JpaRepository<Permission,Integer> {
+    /**
+     * 根据角色Id获取权限授权
+     * @param roleId
+     * @return
+     */
+    @Query(value = "SELECT p.* FROM role_permission_relation r LEFT JOIN permission p ON p.id  = r.permission_id WHERE r.role_id = ?", nativeQuery = true)
+    List<Permission> findPermissionList(@Param("roleId")Long roleId);
 }

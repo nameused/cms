@@ -15,9 +15,7 @@
  */
 package com.github.cms.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -68,6 +66,7 @@ public class User implements Serializable {
     /**
      * 角色ID
      */
+
     private Long roleId;
     /**
      * 创建时间
@@ -76,7 +75,7 @@ public class User implements Serializable {
     /**
      * 登录时间
      */
-    private Date login_time;
+    private Date loginTime;
     /**
      * 激活状态 1为激活 0为禁用
      */
@@ -164,12 +163,12 @@ public class User implements Serializable {
         this.createTime = createTime;
     }
 
-    public Date getLogin_time() {
-        return login_time;
+    public Date getLoginTime() {
+        return loginTime;
     }
 
-    public void setLogin_time(Date login_time) {
-        this.login_time = login_time;
+    public void setLoginTime(Date loginTime) {
+        this.loginTime = loginTime;
     }
 
     public int getStatus() {
@@ -180,21 +179,5 @@ public class User implements Serializable {
         this.status = status;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", userName='" + userName + '\'' +
-                ", trueName='" + trueName + '\'' +
-                ", password='" + password + '\'' +
-                ", gender='" + gender + '\'' +
-                ", icon='" + icon + '\'' +
-                ", email='" + email + '\'' +
-                ", note='" + note + '\'' +
-                ", roleId=" + roleId +
-                ", createTime=" + createTime +
-                ", login_time=" + login_time +
-                ", status=" + status +
-                '}';
-    }
+
 }

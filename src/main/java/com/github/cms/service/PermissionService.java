@@ -15,30 +15,23 @@
  */
 package com.github.cms.service;
 
-import com.github.cms.dao.UserRepository;
+import com.github.cms.dao.PermissionRepository;
 import com.github.cms.entity.Permission;
-import com.github.cms.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-
 /**
  * @author zhangmingyang
- * @Date: 2020/1/6
+ * @Date: 2020/1/19
  * @company Dingxuan
  */
 @Service
-public class UserService {
+public class PermissionService {
     @Autowired
-    private UserRepository userRepository;
-
-    public List<User> findAllUserByStatus() {
-        return userRepository.findAllUserByStatus(User.STATUS);
-    }
-
-    public User findUserByUserName(String userName) {
-        return userRepository.findUserByUserName(userName);
+    private PermissionRepository permissionRepository;
+    public List<Permission> findPermissionList(Long roleId) {
+        return permissionRepository.findPermissionList(roleId);
     }
 }
