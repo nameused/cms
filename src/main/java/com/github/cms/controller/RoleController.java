@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.cms.dao;
-import com.github.cms.entity.Role;
-import org.springframework.data.jpa.repository.JpaRepository;
+package com.github.cms.controller;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author zhangmingyang
- * @Date: 2020/1/19
+ * @Date: 2020/1/21
  * @company Dingxuan
  */
-public interface RoleRepository extends JpaRepository<Role,Long> {
+@RestController
+public class RoleController {
 }

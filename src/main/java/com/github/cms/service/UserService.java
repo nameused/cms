@@ -16,11 +16,15 @@
 package com.github.cms.service;
 
 import com.github.cms.dao.UserRepository;
-import com.github.cms.entity.Permission;
+import com.github.cms.dto.UserParam;
 import com.github.cms.entity.User;
+import com.github.cms.util.CmsConstant;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -33,12 +37,38 @@ import java.util.List;
 public class UserService {
     @Autowired
     private UserRepository userRepository;
-
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     public List<User> findAllUserByStatus() {
         return userRepository.findAllUserByStatus(User.STATUS);
     }
 
     public User findUserByUserName(String userName) {
         return userRepository.findUserByUserName(userName);
+    }
+
+    public long countByUserName(String userName){
+        return userRepository.countByUserName(userName);
+    }
+    public User saveUser(UserParam userParam){
+        System.out.println(userParam);
+        User user=new User();
+        BeanUtils.copyProperties(userParam,user);
+        System.out.println(user);
+        user.setCreateTime(new Date());
+        user.setStatus(CmsConstant.USER_ACTIVE_STATUS);
+        String md5Password = passwordEncoder.encode(user.getPassword());
+        user.setPassword(md5Password);
+        System.out.println(user);
+        userRepository.save(user);
+        return user;
+    }
+
+    public Long deleteUserById(Long id){
+       return userRepository.deleteUserById(id);
+    }
+
+    public Integer updateUserStatus(Long id,Integer status){
+        return userRepository.updateUserStatus(id,status);
     }
 }

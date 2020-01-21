@@ -13,84 +13,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.cms.entity;
+package com.github.cms.dto;
 
-import javax.persistence.*;
-import java.io.Serializable;
-import java.util.Date;
+import io.swagger.annotations.ApiModelProperty;
+
+import javax.validation.constraints.NotNull;
 
 /**
- * 用户实体
+ * 用户请求参数
  *
  * @author zhangmingyang
- * @Date: 2020/1/6
+ * @Date: 2020/1/21
  * @company Dingxuan
  */
-
-@Entity
-@Table(name = "user")
-public class User implements Serializable {
-    /**
-     * 自增ID
-     */
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Long id;
-    /**
-     * 用户名
-     */
+public class UserParam {
+    @ApiModelProperty(value = "用户名", required = true)
     private String userName;
-    /**
-     * 真实名称
-     */
+    @ApiModelProperty(value = "真实姓名")
     private String trueName;
-    /**
-     * 密码
-     */
+    @ApiModelProperty(value = "密码", required = true)
+    @NotNull
     private String password;
-    /**
-     * 性别
-     */
+    @ApiModelProperty(value = "性别")
     private String gender;
-    /**
-     * 头像
-     */
+    @ApiModelProperty(value = "图标")
     private String icon;
-    /**
-     * 邮箱
-     */
+    @ApiModelProperty(value = "邮箱")
     private String email;
-    /**
-     * 备注
-     */
+    @ApiModelProperty(value = "备注")
     private String note;
-    /**
-     * 角色ID
-     */
 
-    private Long roleId;
-    /**
-     * 创建时间
-     */
-    private Date createTime;
-    /**
-     * 登录时间
-     */
-    private Date loginTime;
-    /**
-     * 激活状态 1为激活 0为禁用
-     */
-    private int status;
-
-    public static final int STATUS = 1;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getUserName() {
         return userName;
@@ -148,53 +100,16 @@ public class User implements Serializable {
         this.note = note;
     }
 
-    public Long getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(Long roleId) {
-        this.roleId = roleId;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getLoginTime() {
-        return loginTime;
-    }
-
-    public void setLoginTime(Date loginTime) {
-        this.loginTime = loginTime;
-    }
-
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
-
     @Override
     public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", userName='" + userName + '\'' +
+        return "UserParam{" +
+                "userName='" + userName + '\'' +
                 ", trueName='" + trueName + '\'' +
                 ", password='" + password + '\'' +
                 ", gender='" + gender + '\'' +
                 ", icon='" + icon + '\'' +
                 ", email='" + email + '\'' +
                 ", note='" + note + '\'' +
-                ", roleId=" + roleId +
-                ", createTime=" + createTime +
-                ", loginTime=" + loginTime +
-                ", status=" + status +
                 '}';
     }
 }

@@ -79,9 +79,9 @@ public class CommonResult {
     /**
      * 普通失败提示信息
      */
-    public CommonResult failed() {
+    public CommonResult failed(String failResult) {
         this.code = FAILED;
-        this.message = "操作失败";
+        this.message = failResult;
         return this;
     }
 

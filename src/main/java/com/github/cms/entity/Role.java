@@ -15,11 +15,7 @@
  */
 package com.github.cms.entity;
 
-import io.swagger.models.auth.In;
-
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -35,6 +31,7 @@ public class Role implements Serializable {
      * 自增id
      */
     @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String description;

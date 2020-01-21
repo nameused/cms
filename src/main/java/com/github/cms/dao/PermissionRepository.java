@@ -29,12 +29,12 @@ import java.util.List;
  * @company Dingxuan
  */
 @Repository
-public interface PermissionRepository extends JpaRepository<Permission,Integer> {
+public interface PermissionRepository extends JpaRepository<Permission,Long> {
     /**
      * 根据角色Id获取权限授权
      * @param roleId
      * @return
      */
-    @Query(value = "SELECT p.* FROM role_permission_relation r LEFT JOIN permission p ON p.id  = r.permission_id WHERE r.role_id = ?", nativeQuery = true)
+    @Query(value = "SELECT p.* FROM role_permission r LEFT JOIN permission p ON p.id  = r.permission_id WHERE r.role_id = ?", nativeQuery = true)
     List<Permission> findPermissionList(@Param("roleId")Long roleId);
 }

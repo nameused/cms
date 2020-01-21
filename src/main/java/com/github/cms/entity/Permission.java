@@ -15,8 +15,6 @@
  */
 package com.github.cms.entity;
 
-import org.apache.ibatis.annotations.One;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -33,6 +31,7 @@ public class Permission implements Serializable {
      * 自增ID
      */
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
     /**
      * 父ID
