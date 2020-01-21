@@ -1,5 +1,5 @@
 /**
- * Copyright DingXuan. All Rights Reserved.
+ * Copyright Dingxuan. All Rights Reserved.
  * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,23 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.cms.dao;
+
+package com.github.cms.service;
+
+import com.github.cms.dao.RoleRepository;
 import com.github.cms.entity.Role;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
- * @author zhangmingyang
- * @Date: 2020/1/19
- * @company Dingxuan
+ * @Author: zhangmingyang
+ * @Date: 2020/1/21
+ * @Company Dingxuan
  */
-@Repository
-public interface RoleRepository extends JpaRepository<Role,Long> {
-    /**
-     * 获取所有的角色
-     * @return
-     */
-    List<Role> findAll();
+@Service
+public class RoleService {
+    @Autowired
+    private RoleRepository roleRepository;
+
+    public List<Role> findAllRoleList(){
+        return roleRepository.findAll();
+    }
 }

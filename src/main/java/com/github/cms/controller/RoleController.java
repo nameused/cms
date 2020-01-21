@@ -14,7 +14,19 @@
  * limitations under the License.
  */
 package com.github.cms.controller;
+import com.github.cms.dto.CommonResult;
+import com.github.cms.entity.Role;
+import com.github.cms.service.RoleService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * @author zhangmingyang
@@ -22,5 +34,20 @@ import org.springframework.web.bind.annotation.RestController;
  * @company Dingxuan
  */
 @RestController
+@Api(tags = "RoleController", description = "角色管理")
+@RequestMapping("/sys/role")
 public class RoleController {
+    private static final Logger LOGGER = LoggerFactory.getLogger(RoleController.class);
+    @Autowired
+    private RoleService roleService;
+    /**
+     * 得到所有已激活用户
+     */
+    @ApiOperation("获取所有激活用户")
+    @GetMapping(value = "/getAllRoleList", produces = {"application/json;charset=UTF-8"})
+    public Object findAllRoleList() {
+        List<Role> allRoleList = roleService.findAllRoleList();
+        return new CommonResult().pageSuccess(allRoleList);
+    }
+
 }

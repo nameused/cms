@@ -43,7 +43,7 @@ import java.util.List;
 @Api(tags = "UserController", description = "用户管理")
 @RequestMapping("/sys/user")
 public class UserController {
-    private static final Logger LOGGER = LoggerFactory.getLogger(JwtTokenUtil.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
     @Autowired
     private UserService userService;
     @Autowired
