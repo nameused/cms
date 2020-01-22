@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 package com.github.cms.controller;
+
 import com.github.cms.dto.CommonResult;
 import com.github.cms.entity.Role;
 import com.github.cms.service.RoleService;
@@ -40,6 +41,7 @@ public class RoleController {
     private static final Logger LOGGER = LoggerFactory.getLogger(RoleController.class);
     @Autowired
     private RoleService roleService;
+
     /**
      * 得到所有已激活用户
      */
@@ -47,7 +49,10 @@ public class RoleController {
     @GetMapping(value = "/getAllRoleList", produces = {"application/json;charset=UTF-8"})
     public Object findAllRoleList() {
         List<Role> allRoleList = roleService.findAllRoleList();
-        return new CommonResult().pageSuccess(allRoleList);
+        if (allRoleList.size() > 0) {
+            return new CommonResult().pageSuccess(allRoleList);
+        }
+        return new CommonResult().failed("获取角色失败");
     }
 
 }

@@ -19,8 +19,15 @@ import com.github.cms.dao.UserRepository;
 import com.github.cms.dto.UserParam;
 import com.github.cms.entity.User;
 import com.github.cms.util.CmsConstant;
+import com.github.cms.util.JwtTokenUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -39,6 +46,12 @@ public class UserService {
     private UserRepository userRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private JwtTokenUtil jwtTokenUtil;
+    @Autowired
+    private UserDetailsService userDetailsService;
+    @Value("${jwt.tokenHead}")
+    private String tokenHead;
     public List<User> findAllUserByStatus() {
         return userRepository.findAllUserByStatus(User.STATUS);
     }
@@ -47,13 +60,14 @@ public class UserService {
         return userRepository.findUserByUserName(userName);
     }
 
-    public long countByUserName(String userName){
+    public long countByUserName(String userName) {
         return userRepository.countByUserName(userName);
     }
-    public User saveUser(UserParam userParam){
+
+    public User saveUser(UserParam userParam) {
         System.out.println(userParam);
-        User user=new User();
-        BeanUtils.copyProperties(userParam,user);
+        User user = new User();
+        BeanUtils.copyProperties(userParam, user);
         System.out.println(user);
         user.setCreateTime(new Date());
         user.setStatus(CmsConstant.USER_ACTIVE_STATUS);
@@ -64,11 +78,29 @@ public class UserService {
         return user;
     }
 
-    public Long deleteUserById(Long id){
-       return userRepository.deleteUserById(id);
+    public Long deleteUserById(Long id) {
+        return userRepository.deleteUserById(id);
     }
 
-    public Integer updateUserStatus(Long id,Integer status){
-        return userRepository.updateUserStatus(id,status);
+    public Integer updateUserStatus(Long id, Integer status) {
+        return userRepository.updateUserStatus(id, status);
+    }
+
+    /**
+     * 登录
+     * @param userNmae
+     * @param password
+     * @return
+     */
+    public String login(String userNmae, String password) {
+        String token = null;
+       UserDetails userDetails=userDetailsService.loadUserByUsername(userNmae);
+        if (!passwordEncoder.matches(password,userDetails.getPassword())){
+            throw new BadCredentialsException("密码不正确");
+        }
+        UsernamePasswordAuthenticationToken authenticationToken=new UsernamePasswordAuthenticationToken(userDetails,null,userDetails.getAuthorities());
+        SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+        token=jwtTokenUtil.generateToken(userDetails);
+        return token;
     }
 }
