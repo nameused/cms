@@ -16,6 +16,7 @@
 package com.github.cms.controller;
 
 import com.github.cms.dto.CommonResult;
+import com.github.cms.dto.UserLoginParam;
 import com.github.cms.dto.UserParam;
 import com.github.cms.entity.Permission;
 import com.github.cms.entity.User;
@@ -27,9 +28,14 @@ import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 用户管理控制器
@@ -47,6 +53,10 @@ public class UserController {
     private UserService userService;
     @Autowired
     private PermissionService permissionService;
+    @Value("${jwt.tokenHeader}")
+    private String tokenHeader;
+    @Value("${jwt.tokenHead}")
+    private String tokenHead;
 
     /**
      * 得到所有已激活用户
@@ -87,6 +97,40 @@ public class UserController {
         User user = userService.saveUser(userParam);
         return new CommonResult().success(user);
     }
+
+    /**
+     * 用户登录
+     */
+    @ApiOperation("用户登录")
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @ResponseBody
+    public Object login(@RequestBody UserLoginParam userLoginParam) {
+        String token=userService.login(userLoginParam.getUserName(),userLoginParam.getPassword());
+        if(StringUtils.isEmpty(token)){
+            return new CommonResult().validateFailed("用户名或密码错误");
+        }
+        Map<String,String> tokenMap=new HashMap<>();
+        tokenMap.put("token",token);
+        tokenMap.put("tokenHead",tokenHead);
+        return new CommonResult().success(token);
+    }
+
+    /**
+     * 获取登录用户信息
+     */
+    @ApiOperation("获取登录用户信息")
+    @RequestMapping(value = "/info", method = RequestMethod.GET)
+    @ResponseBody
+    public Object findUserInfo(Principal principal) {
+        String userName=principal.getName();
+        User user=userService.findUserByUserName(userName);
+        Map<String,Object> data=new HashMap<>();
+        data.put("username",user.getUserName());
+        data.put("roles",new String[]{"TEST"});
+        data.put("icon",user.getIcon());
+        return new CommonResult().success(data);
+    }
+
 
     @ApiOperation("删除用户")
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)

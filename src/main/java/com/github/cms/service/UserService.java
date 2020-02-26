@@ -52,6 +52,7 @@ public class UserService {
     private UserDetailsService userDetailsService;
     @Value("${jwt.tokenHead}")
     private String tokenHead;
+
     public List<User> findAllUserByStatus() {
         return userRepository.findAllUserByStatus(User.STATUS);
     }
@@ -88,19 +89,21 @@ public class UserService {
 
     /**
      * 登录
-     * @param userNmae
+     *
+     * @param userName
      * @param password
      * @return
      */
-    public String login(String userNmae, String password) {
+    public String login(String userName, String password) {
         String token = null;
-       UserDetails userDetails=userDetailsService.loadUserByUsername(userNmae);
-        if (!passwordEncoder.matches(password,userDetails.getPassword())){
+        UserDetails userDetails = userDetailsService.loadUserByUsername(userName);
+        System.out.println(userDetails.getPassword());
+        if (!passwordEncoder.matches(password, userDetails.getPassword())) {
             throw new BadCredentialsException("密码不正确");
         }
-        UsernamePasswordAuthenticationToken authenticationToken=new UsernamePasswordAuthenticationToken(userDetails,null,userDetails.getAuthorities());
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-        token=jwtTokenUtil.generateToken(userDetails);
+        token = jwtTokenUtil.generateToken(userDetails);
         return token;
     }
 }
