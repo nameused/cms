@@ -69,7 +69,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/v2/api-docs/**"
                 )
                 .permitAll()
-                .antMatchers("/user/login", "/user/register")
+                .antMatchers("/sys/user/login", "/sys/user/register")
                 // 对登录注册要允许匿名访问
                 .permitAll()
                 .antMatchers(HttpMethod.OPTIONS)
@@ -106,7 +106,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public UserDetailsService userDetailsService() {
         //获取登录用户信息
         return username -> {
-            User user = userService.findUserByUserName(username);
+            User user = userService.findUserByUsername(username);
             if (user != null) {
                 List<Permission> permissionList = permissionService.findPermissionList(user.getId());
                 return new CmsUserDetail(user, permissionList);

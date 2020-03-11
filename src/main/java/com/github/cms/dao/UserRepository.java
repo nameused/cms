@@ -45,7 +45,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
      * @param userName
      * @return
      */
-    User findUserByUserName(String userName);
+    User findUserByUsername(String userName);
 
 
     /**
@@ -54,7 +54,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
      * @param userName
      * @return
      */
-    Long countByUserName(String userName);
+    Long countByUsername(String userName);
 
     /**
      * 根据主键ID删除用户信息

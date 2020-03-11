@@ -30,6 +30,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -91,7 +92,7 @@ public class UserController {
     @ResponseBody
     public Object register(@RequestBody UserParam userParam, Long roleId) {
         LOGGER.info("roleId：" + roleId);
-        if (userService.countByUserName(userParam.getUserName()) > 0) {
+        if (userService.countByUserName(userParam.getUsername()) > 0) {
             return new CommonResult().failed("该用户已注册!");
         }
         User user = userService.saveUser(userParam);
@@ -104,15 +105,17 @@ public class UserController {
     @ApiOperation("用户登录")
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
-    public Object login(@RequestBody UserLoginParam userLoginParam) {
-        String token=userService.login(userLoginParam.getUserName(),userLoginParam.getPassword());
-        if(StringUtils.isEmpty(token)){
+    public Object login(@RequestBody UserLoginParam userLoginParam, BindingResult result) {
+        String token = userService.login(userLoginParam.getUsername(), userLoginParam.getPassword());
+        if (StringUtils.isEmpty(token)) {
             return new CommonResult().validateFailed("用户名或密码错误");
         }
-        Map<String,String> tokenMap=new HashMap<>();
-        tokenMap.put("token",token);
-        tokenMap.put("tokenHead",tokenHead);
-        return new CommonResult().success(token);
+        Map<String, String> tokenMap = new HashMap<>();
+        tokenMap.put("token", token);
+        LOGGER.info("token----------------------------->"+token);
+        LOGGER.info("tokenHead----------------------------->"+tokenHead);
+        tokenMap.put("tokenHead", tokenHead);
+        return new CommonResult().success(tokenMap);
     }
 
     /**
@@ -122,12 +125,12 @@ public class UserController {
     @RequestMapping(value = "/info", method = RequestMethod.GET)
     @ResponseBody
     public Object findUserInfo(Principal principal) {
-        String userName=principal.getName();
-        User user=userService.findUserByUserName(userName);
-        Map<String,Object> data=new HashMap<>();
-        data.put("username",user.getUserName());
-        data.put("roles",new String[]{"TEST"});
-        data.put("icon",user.getIcon());
+        String userName = principal.getName();
+        User user = userService.findUserByUsername(userName);
+        Map<String, Object> data = new HashMap<>();
+        data.put("username", user.getUsername());
+        data.put("roles", new String[]{"TEST"});
+        data.put("icon", user.getIcon());
         return new CommonResult().success(data);
     }
 

@@ -57,12 +57,12 @@ public class UserService {
         return userRepository.findAllUserByStatus(User.STATUS);
     }
 
-    public User findUserByUserName(String userName) {
-        return userRepository.findUserByUserName(userName);
+    public User findUserByUsername(String userName) {
+        return userRepository.findUserByUsername(userName);
     }
 
     public long countByUserName(String userName) {
-        return userRepository.countByUserName(userName);
+        return userRepository.countByUsername(userName);
     }
 
     public User saveUser(UserParam userParam) {
