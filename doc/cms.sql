@@ -84,7 +84,7 @@ INSERT INTO `role_permission` VALUES ('3', '1', '3');
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '帐号启用状态：0->禁用；1->启用',
-  `user_name` varchar(64) DEFAULT NULL COMMENT '用户名',
+  `username` varchar(64) DEFAULT NULL COMMENT '用户名',
   `true_name` varchar(64) DEFAULT NULL COMMENT '真实姓名',
   `password` varchar(64) NOT NULL,
   `gender` varchar(4) DEFAULT NULL COMMENT '性别',
