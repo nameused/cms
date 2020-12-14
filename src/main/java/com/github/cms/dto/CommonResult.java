@@ -23,6 +23,7 @@ package com.github.cms.dto;
 
 import com.github.cms.util.JsonUtil;
 import com.github.pagehelper.PageInfo;
+import org.springframework.data.domain.Page;
 import org.springframework.validation.BindingResult;
 
 import java.util.HashMap;
@@ -70,6 +71,23 @@ public class CommonResult {
         result.put("total", pageInfo.getTotal());
         result.put("pageNum", pageInfo.getPageNum());
         result.put("list", pageInfo.getList());
+        this.code = SUCCESS;
+        this.message = "操作成功";
+        this.data = result;
+        return this;
+    }
+
+
+    /**
+     * 返回分页成功数据
+     */
+    public <T> CommonResult pageSuccess(Page<T> page) {
+        Map<String, Object> result = new HashMap<>();
+        result.put("pageSize", page.getNumberOfElements());
+        result.put("totalPage", page.getTotalPages());
+        result.put("total",page.getTotalElements());
+        result.put("pageNum", page.getNumber());
+        result.put("list",page.getContent());
         this.code = SUCCESS;
         this.message = "操作成功";
         this.data = result;
