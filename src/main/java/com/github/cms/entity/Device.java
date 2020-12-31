@@ -25,20 +25,53 @@ import java.util.Date;
  * @company Dingxuan
  */
 @Entity
-@Table(name = "host")
-public class Host implements Serializable {
+@Table(name = "device")
+public class Device implements Serializable {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
 
-    private String hostName;
+    private String deviceName;
 
-    private String hostAddress;
+    private String deviceAddress;
 
-    private String hostDes;
+    private String rootPassword;
+
+    private String deviceDes;
 
     private Date createTime;
 
+    public String getDeviceName() {
+        return deviceName;
+    }
+
+    public void setDeviceName(String deviceName) {
+        this.deviceName = deviceName;
+    }
+
+    public String getDeviceAddress() {
+        return deviceAddress;
+    }
+
+    public void setDeviceAddress(String deviceAddress) {
+        this.deviceAddress = deviceAddress;
+    }
+
+    public String getRootPassword() {
+        return rootPassword;
+    }
+
+    public void setRootPassword(String rootPassword) {
+        this.rootPassword = rootPassword;
+    }
+
+    public String getDeviceDes() {
+        return deviceDes;
+    }
+
+    public void setDeviceDes(String deviceDes) {
+        this.deviceDes = deviceDes;
+    }
 
     public Long getId() {
         return id;
@@ -48,29 +81,7 @@ public class Host implements Serializable {
         this.id = id;
     }
 
-    public String getHostName() {
-        return hostName;
-    }
 
-    public void setHostName(String hostName) {
-        this.hostName = hostName;
-    }
-
-    public String getHostAddress() {
-        return hostAddress;
-    }
-
-    public void setHostAddress(String hostAddress) {
-        this.hostAddress = hostAddress;
-    }
-
-    public String getHostDes() {
-        return hostDes;
-    }
-
-    public void setHostDes(String hostDes) {
-        this.hostDes = hostDes;
-    }
 
     public Date getCreateTime() {
         return createTime;
@@ -80,14 +91,5 @@ public class Host implements Serializable {
         this.createTime = createTime;
     }
 
-    @Override
-    public String toString() {
-        return "Host{" +
-                "id=" + id +
-                ", hostName='" + hostName + '\'' +
-                ", hostAddress='" + hostAddress + '\'' +
-                ", hostDes='" + hostDes + '\'' +
-                ", createTime=" + createTime +
-                '}';
-    }
+
 }

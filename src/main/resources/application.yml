@@ -6,11 +6,16 @@ server:
 #数据库配置
 spring:
   datasource:
+    hikari:
+      minimum-idle: 3
+      max-lifetime: 30000
+      maximum-pool-size: 10
     username: root
     password: 2wsx3edc
     driver-class-name: com.mysql.cj.jdbc.Driver
 #    url: jdbc:mysql://localhost:3306/cms?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC
-    url: jdbc:mysql://111.229.138.120:3306/cms?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC
+    url: jdbc:mysql://81.69.56.253:3306/cms?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC
+
     # JPA配置
   jpa:
     #热部署配置

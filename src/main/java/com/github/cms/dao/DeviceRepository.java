@@ -15,7 +15,7 @@
  */
 package com.github.cms.dao;
 
-import com.github.cms.entity.Host;
+import com.github.cms.entity.Device;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
@@ -27,5 +27,5 @@ import org.springframework.stereotype.Repository;
  * @company Dingxuan
  */
 @Repository
-public interface HostRepository extends JpaSpecificationExecutor<Host>, JpaRepository<Host,Long> {
+public interface DeviceRepository extends JpaSpecificationExecutor<Device>, JpaRepository<Device,Long> {
 }
