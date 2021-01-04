@@ -17,7 +17,9 @@ package com.github.cms.controller;
 
 import com.github.cms.dto.CommonResult;
 import com.github.cms.entity.Device;
+import com.github.cms.entity.Vm;
 import com.github.cms.service.DeviceService;
+import com.github.cms.service.VmService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -42,6 +44,9 @@ public class HostController {
     @Autowired
     private DeviceService deviceService;
 
+    @Autowired
+    private VmService vmService;
+
     /**
      * 得到所有已激活用户
      */
@@ -57,22 +62,25 @@ public class HostController {
         device.setDeviceName(deviceName);
         device.setDeviceAddress(deviceAddress);
         device.setDeviceDes(deviceDes);
-        logger.info("创建时间："+createTime);
-        Page<Device> deviceList = deviceService.findDeviceListByParam(device,page,count);
+        logger.info("创建时间：" + createTime);
+        Page<Device> deviceList = deviceService.findDeviceListByParam(device, page, count);
         return new CommonResult().pageSuccess(deviceList);
     }
+
     @ApiOperation("获取虚拟机服务信息")
-    @GetMapping(value = "/getVmInfo", produces = {"application/json;charset=UTF-8"})
-    public Object getVmInfo(@RequestParam(required = false) String hostName,
-                             @RequestParam(required = false) String hostAddress,
-                             @RequestParam(required = false) String createTime,
-                             @RequestParam(required = false) String hostDes,
-                             @RequestParam int page,
-                             @RequestParam int count) {
-        Device device = new Device();
-        logger.info("创建时间："+createTime);
-        Page<Device> allHost = deviceService.findDeviceListByParam(device,page,count);
-        return new CommonResult().pageSuccess(allHost);
+    @GetMapping(value = "/getVmList", produces = {"application/json;charset=UTF-8"})
+    public Object getVmList(@RequestParam(required = false) String vmName,
+                            @RequestParam(required = false) String vmIp,
+                            @RequestParam(required = false) String owner,
+                            @RequestParam(required = false) String createTime,
+                            @RequestParam int page,
+                            @RequestParam int count) {
+        Vm vm = new Vm();
+        vm.setVmName(vmName);
+        vm.setVmIp(vmIp);
+        vm.setOwner(owner);
+        Page<Vm> vmList = vmService.findAllVmList(vm, page, count);
+        return new CommonResult().pageSuccess(vmList);
     }
 
 }

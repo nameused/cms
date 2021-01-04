@@ -1,11 +1,9 @@
 package com.github.cms.entity;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+@Entity
 @Table(name = "vm")
 public class Vm implements Serializable {
 

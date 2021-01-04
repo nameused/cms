@@ -1,7 +1,6 @@
 package com.github.cms.service;
 
 import com.github.cms.dao.VmRepository;
-import com.github.cms.entity.Device;
 import com.github.cms.entity.Vm;
 import net.logstash.logback.encoder.org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +16,13 @@ import java.util.List;
 
 @Service
 public class VmService {
-
     @Autowired
     private VmRepository vmRepository;
-    public Page<Device> findAllVmList(Vm vm, int pageNumber, int pageSize){
+
+
+    public Page<Vm> findAllVmList(Vm vm, int pageNumber, int pageSize){
         Pageable pageable = PageRequest.of(pageNumber, pageSize);
-        Specification<Device> spec = (Specification<Device>) (root, query, cb) -> {
+        Specification<Vm> spec = (Specification<Vm>) (root, query, cb) -> {
             List<Predicate> predicatesList = new ArrayList<>();
             if (StringUtils.isNotBlank(vm.getVmName())) {
                 predicatesList.add(cb.like(root.get("vmName"), "%" + vm.getVmName().trim() + "%"));
