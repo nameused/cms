@@ -1,33 +1,27 @@
-package com.github.cms.entity;
+package com.github.cms.dto;
 
-import javax.persistence.*;
-import java.io.Serializable;
-import java.util.Date;
-@Entity
-@Table(name = "vm")
-public class Vm implements Serializable {
+import io.swagger.annotations.ApiModelProperty;
 
-    @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Long id;
+import javax.validation.constraints.NotEmpty;
+
+public class VmParam {
+    @ApiModelProperty(value = "虚拟机IP", required = true)
+    @NotEmpty(message = "虚拟机IP不能为空")
     private String vmIp;
+    @ApiModelProperty(value = "虚拟机名称", required = true)
     private String vmName;
+    @ApiModelProperty(value = "负责人", required = true)
     private String owner;
+    @ApiModelProperty(value = "root密码", required = true)
     private String rootPassword;
-    private Date createTime;
+    @ApiModelProperty(value = "启动方式", required = true)
     private String startMethod;
+    @ApiModelProperty(value = "内网端口", required = true)
     private String insidePort;
+    @ApiModelProperty(value = "互联网端口", required = true)
     private String internetPort;
+    @ApiModelProperty(value = "服务访问地址", required = true)
     private String url;
-    private int status;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getVmIp() {
         return vmIp;
@@ -61,20 +55,8 @@ public class Vm implements Serializable {
         this.rootPassword = rootPassword;
     }
 
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
     public String getStartMethod() {
         return startMethod;
-    }
-
-    public void setStartMethod(String startMethod) {
-        this.startMethod = startMethod;
     }
 
     public String getInsidePort() {
@@ -101,11 +83,7 @@ public class Vm implements Serializable {
         this.url = url;
     }
 
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
+    public void setStartMethod(String startMethod) {
+        this.startMethod = startMethod;
     }
 }

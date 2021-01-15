@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface VmRepository extends JpaSpecificationExecutor<Vm>, JpaRepository<Vm,Long> {
+
 }

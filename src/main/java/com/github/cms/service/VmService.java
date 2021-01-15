@@ -1,8 +1,10 @@
 package com.github.cms.service;
 
 import com.github.cms.dao.VmRepository;
+import com.github.cms.dto.VmParam;
 import com.github.cms.entity.Vm;
 import net.logstash.logback.encoder.org.apache.commons.lang.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,7 +22,7 @@ public class VmService {
     private VmRepository vmRepository;
 
 
-    public Page<Vm> findAllVmList(Vm vm, int pageNumber, int pageSize){
+    public Page<Vm> findAllVmList(Vm vm, int pageNumber, int pageSize) {
         Pageable pageable = PageRequest.of(pageNumber, pageSize);
         Specification<Vm> spec = (Specification<Vm>) (root, query, cb) -> {
             List<Predicate> predicatesList = new ArrayList<>();
@@ -37,6 +39,13 @@ public class VmService {
             Predicate[] predicates = new Predicate[predicatesList.size()];
             return cb.and(predicatesList.toArray(predicates));
         };
-        return vmRepository.findAll(spec,pageable);
+        return vmRepository.findAll(spec, pageable);
+    }
+
+    public Vm saveVm(VmParam vmParam) {
+        Vm vm = new Vm();
+        BeanUtils.copyProperties(vmParam, vm);
+        vmRepository.save(vm);
+        return vm;
     }
 }

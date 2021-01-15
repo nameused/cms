@@ -16,6 +16,7 @@
 package com.github.cms.controller;
 
 import com.github.cms.dto.CommonResult;
+import com.github.cms.dto.VmParam;
 import com.github.cms.entity.Device;
 import com.github.cms.entity.Vm;
 import com.github.cms.service.DeviceService;
@@ -26,10 +27,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author zhangmingyang
@@ -67,6 +65,18 @@ public class HostController {
         return new CommonResult().pageSuccess(deviceList);
     }
 
+    @ApiOperation("新增虚拟机")
+    @RequestMapping(value = "/addVm", method = RequestMethod.POST)
+    @ResponseBody
+    public Object addVm(@RequestBody VmParam vmParam) {
+        Vm vm = vmService.saveVm(vmParam);
+        if(vm!=null){
+            return new CommonResult().success(vm);
+        }
+        return new CommonResult().failed("新增虚拟机失败");
+    }
+
+
     @ApiOperation("获取虚拟机服务信息")
     @GetMapping(value = "/getVmList", produces = {"application/json;charset=UTF-8"})
     public Object getVmList(@RequestParam(required = false) String vmName,
@@ -82,5 +92,6 @@ public class HostController {
         Page<Vm> vmList = vmService.findAllVmList(vm, page, count);
         return new CommonResult().pageSuccess(vmList);
     }
+
 
 }
