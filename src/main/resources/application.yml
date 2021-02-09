@@ -1,7 +1,11 @@
 #服务端容器的配置
 server:
   port: 9090
-
+#  ssl:
+#    key-store: classpath:server.p12
+#    key-store-type: PKCS12
+#    key-store-password: 000000
+#    key-alias: 1
 
 #数据库配置
 spring:
