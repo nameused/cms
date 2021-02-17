@@ -16,17 +16,6 @@
     <description>Demo project for Spring Boot</description>
 
 
-    <repositories>
-        <repository>
-            <id>maven-releases</id>
-            <!-- /用户名/仓库名/分支名/-->
-            <url>http://111.229.138.120:8081/repository/maven-releases</url>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>always</updatePolicy>
-            </snapshots>
-        </repository>
-    </repositories>
 
     <properties>
         <java.version>1.8</java.version>
@@ -122,6 +111,18 @@
 
     <build>
         <plugins>
+
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <configuration>
+                    <nonFilteredFileExtensions>
+                        <!--这里是文件后缀-->
+                        <nonFilteredFileExtension>jks</nonFilteredFileExtension>
+                    </nonFilteredFileExtensions>
+                </configuration>
+            </plugin>
 
             <!-- springboot 打包插件，会将类加载器及相关lib包打入到jar包中，打包doker镜像时，必须通过该插件打包-->
             <plugin>
