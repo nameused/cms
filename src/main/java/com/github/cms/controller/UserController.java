@@ -135,6 +135,13 @@ public class UserController {
     }
 
 
+    @ApiOperation(value = "登出功能")
+    @RequestMapping(value = "/logout", method = RequestMethod.POST)
+    @ResponseBody
+    public Object logout() {
+        return new CommonResult().success(null);
+    }
+
     @ApiOperation("删除用户")
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     @ResponseBody

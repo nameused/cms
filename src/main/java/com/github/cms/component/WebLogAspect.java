@@ -4,7 +4,6 @@ import com.github.cms.entity.WebLog;
 import com.github.cms.util.JsonUtil;
 import com.github.cms.util.RequestUtil;
 import io.swagger.annotations.ApiOperation;
-import net.logstash.logback.marker.Markers;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
@@ -83,7 +82,7 @@ public class WebLogAspect {
         logMap.put("spendTime",webLog.getSpendTime());
         logMap.put("username",webLog.getUsername());
         logMap.put("description",webLog.getDescription());
-        LOGGER.info(Markers.appendEntries(logMap), JsonUtil.objectToJson(webLog));
+        //LOGGER.info(Markers.appendEntries(logMap), JsonUtil.objectToJson(webLog));
         return result;
     }
 

@@ -3,23 +3,39 @@ package com.github.cms.entity;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+
 @Entity
 @Table(name = "vm")
 public class Vm implements Serializable {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "vm_ip")
     private String vmIp;
+    @Column
     private String vmName;
+    @Column
     private String owner;
+    @Column
     private String rootPassword;
+    @Column
     private Date createTime;
+    @Column
     private String startMethod;
+    @Column
     private String insidePort;
+    @Column
     private String internetPort;
+    @Column
     private String url;
+    @Column
     private int status;
+    @Column
+    private String host;
+    @Column(name = "note",length = 255)
+    private String note;
+
 
     public Long getId() {
         return id;
@@ -107,5 +123,21 @@ public class Vm implements Serializable {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public String getHost() {
+        return host;
+    }
+
+    public void setHost(String host) {
+        this.host = host;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 }

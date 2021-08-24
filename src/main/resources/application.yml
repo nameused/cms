@@ -1,12 +1,13 @@
 #服务端容器的配置
 server:
-  port: 443
-  ssl:
-    key-store: classpath:keystore.jks
-    key-store-type: JKS
-    key-store-password: 111111
-    key-alias: tomcat
-    enabled: true
+  port: 9090
+#  port: 443
+#  ssl:
+#    key-store: classpath:tomcat.pfx
+#    key-store-type: PKCS12
+#    key-store-password: 111111
+#    key-alias: tomcat
+#    enabled: true
 
 #数据库配置
 spring:
@@ -20,8 +21,8 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
 #    url: jdbc:mysql://111.229.138.120:3306/cms?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC
     url: jdbc:mysql://81.69.56.253:3306/cms?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC
-
     # JPA配置
+
   jpa:
     #热部署配置
     devtools:
@@ -32,21 +33,17 @@ spring:
       freemarker:
         cache: false    #页面不加载缓存，修改即时生效
     open-in-view: false
+
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
 jwt:
   tokenHeader: Authorization #JWT存储的请求头
   secret: mySecret #JWT加解密使用的密钥
   expiration: 604800 #JWT的超期限时间(60*60*24)
   tokenHead: Bearer  #JWT负载中拿到开头
 
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
-
-    # formatSQL得这样写
-    properties:
-      hibernate:
-        format_sql: true
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: Asia/Shanghai

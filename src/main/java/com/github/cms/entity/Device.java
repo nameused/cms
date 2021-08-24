@@ -15,6 +15,8 @@
  */
 package com.github.cms.entity;
 
+import com.alibaba.excel.annotation.ExcelProperty;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -29,16 +31,22 @@ import java.util.Date;
 public class Device implements Serializable {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @ExcelProperty(value = "序号", index = 0)
     private Long id;
 
+    @ExcelProperty(value = "设备名称", index = 1)
     private String deviceName;
 
+    @ExcelProperty(value = "设备地址", index = 2)
     private String deviceAddress;
 
+    @ExcelProperty(value = "ROOT密码", index = 3)
     private String rootPassword;
 
+    @ExcelProperty(value = "设备用途", index = 4)
     private String deviceDes;
 
+    @ExcelProperty(value = "创建时间", index = 5)
     private Date createTime;
 
     public String getDeviceName() {
@@ -91,5 +99,15 @@ public class Device implements Serializable {
         this.createTime = createTime;
     }
 
-
+    @Override
+    public String toString() {
+        return "Device{" +
+                "id=" + id +
+                ", deviceName='" + deviceName + '\'' +
+                ", deviceAddress='" + deviceAddress + '\'' +
+                ", rootPassword='" + rootPassword + '\'' +
+                ", deviceDes='" + deviceDes + '\'' +
+                ", createTime=" + createTime +
+                '}';
+    }
 }

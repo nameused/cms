@@ -1,26 +1,13 @@
-/**
- * Copyright DingXuan. All Rights Reserved.
- * <p>
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * <p>
- * http://www.apache.org/licenses/LICENSE-2.0
- * <p>
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.github.cms.controller;
 
+import com.alibaba.excel.EasyExcel;
 import com.github.cms.dto.CommonResult;
 import com.github.cms.dto.VmParam;
 import com.github.cms.entity.Device;
 import com.github.cms.entity.Vm;
 import com.github.cms.service.DeviceService;
 import com.github.cms.service.VmService;
+import com.github.cms.util.DeviceExcelLister;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -29,10 +16,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
+
 /**
  * @author zhangmingyang
  * @Date: 2020/11/23
- * @company Dingxuan
  */
 @RestController
 @Api(tags = "HostController", description = "主机管理")
@@ -70,7 +57,7 @@ public class HostController {
     @ResponseBody
     public Object addVm(@RequestBody VmParam vmParam) {
         Vm vm = vmService.saveVm(vmParam);
-        if(vm!=null){
+        if (vm != null) {
             return new CommonResult().success(vm);
         }
         return new CommonResult().failed("新增虚拟机失败");
@@ -93,5 +80,11 @@ public class HostController {
         return new CommonResult().pageSuccess(vmList);
     }
 
+    @ApiOperation("导入设备信息")
+    @RequestMapping(value = "/importDevice", method = RequestMethod.POST)
+    @ResponseBody
+    public void importDevice() {
+        EasyExcel.read("D:\\test\\aus\\device.xlsx", Device.class, new DeviceExcelLister(deviceService)).sheet().doRead();
 
+    }
 }

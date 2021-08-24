@@ -17,7 +17,7 @@ package com.github.cms.service;
 
 import com.github.cms.dao.DeviceRepository;
 import com.github.cms.entity.Device;
-import net.logstash.logback.encoder.org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -40,7 +40,7 @@ public class DeviceService {
     private DeviceRepository deviceRepository;
 
 
-    public Page<Device> findDeviceListByParam(Device device, int pageNumber, int pageSize){
+    public Page<Device> findDeviceListByParam(Device device, int pageNumber, int pageSize) {
         Pageable pageable = PageRequest.of(pageNumber, pageSize);
         Specification<Device> spec = (Specification<Device>) (root, query, cb) -> {
             List<Predicate> predicatesList = new ArrayList<>();
@@ -57,7 +57,13 @@ public class DeviceService {
             Predicate[] predicates = new Predicate[predicatesList.size()];
             return cb.and(predicatesList.toArray(predicates));
         };
-        return deviceRepository.findAll(spec,pageable);
+        return deviceRepository.findAll(spec, pageable);
+    }
+
+
+    public Device saveDevice(Device device) {
+        deviceRepository.save(device);
+        return device;
     }
 
 }
