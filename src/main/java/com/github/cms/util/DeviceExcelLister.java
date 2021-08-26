@@ -2,7 +2,6 @@ package com.github.cms.util;
 
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
-import com.github.cms.controller.RoleController;
 import com.github.cms.entity.Device;
 import com.github.cms.service.DeviceService;
 import org.slf4j.Logger;
@@ -16,18 +15,18 @@ import java.util.Map;
 @Component
 public class DeviceExcelLister extends AnalysisEventListener<Device> {
     private static final Logger logger = LoggerFactory.getLogger(DeviceExcelLister.class);
-    public  List<Device> deviceList = new ArrayList<>();
+    public static List<Device> deviceList = new ArrayList<>();
     public DeviceService deviceService;
-
-    public DeviceExcelLister(DeviceService deviceService) {
-        this.deviceService = deviceService;
-    }
+//
+//    public DeviceExcelLister(DeviceService deviceService) {
+//        this.deviceService = deviceService;
+//    }
 
     @Override
     public void invoke(Device device, AnalysisContext analysisContext) {
         deviceList.add(device);
         //根据业务进行测试
-        doSomething(device);
+      //  doSomething(device);
     }
 
     /**
@@ -45,9 +44,9 @@ public class DeviceExcelLister extends AnalysisEventListener<Device> {
     /**
      * 插入数据库
      */
-    public void doSomething(Device device) {
-        deviceService.saveDevice(device);
-    }
+//    public void doSomething(Device device) {
+//        deviceService.saveDevice(device);
+//    }
 
 
     @Override

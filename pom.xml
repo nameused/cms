@@ -27,11 +27,14 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
             <exclusions>
                 <exclusion>
                     <groupId>org.junit.vintage</groupId>
                     <artifactId>junit-vintage-engine</artifactId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>asm</artifactId>
+                    <groupId>org.ow2.asm</groupId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -81,11 +84,11 @@
 
 
         <!--集成logstash-->
-        <!--        <dependency>-->
-        <!--            <groupId>net.logstash.logback</groupId>-->
-        <!--            <artifactId>logstash-logback-encoder</artifactId>-->
-        <!--            <version>4.8</version>-->
-        <!--        </dependency>-->
+        <dependency>
+            <groupId>net.logstash.logback</groupId>
+            <artifactId>logstash-logback-encoder</artifactId>
+            <version>4.8</version>
+        </dependency>
         <!--Spring security-->
         <dependency>
             <groupId>org.snmp4j</groupId>
@@ -107,6 +110,12 @@
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper-spring-boot-starter</artifactId>
             <version>1.2.3</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>mybatis-spring-boot-starter</artifactId>
+                    <groupId>org.mybatis.spring.boot</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
@@ -120,6 +129,28 @@
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
             <version>2.2.2.RELEASE</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>archaius-core</artifactId>
+                    <groupId>com.netflix.archaius</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>servo-core</artifactId>
+                    <groupId>com.netflix.servo</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>hystrix-core</artifactId>
+                    <groupId>com.netflix.hystrix</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>ribbon-transport</artifactId>
+                    <groupId>com.netflix.ribbon</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>guava</artifactId>
+                    <groupId>com.google.guava</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
 

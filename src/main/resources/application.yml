@@ -38,6 +38,10 @@ spring:
       ddl-auto: update
     show-sql: true
 
+upload:
+  defaultFilePath: D:\\test\\upload\\
+
+
 jwt:
   tokenHeader: Authorization #JWT存储的请求头
   secret: mySecret #JWT加解密使用的密钥
