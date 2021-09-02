@@ -51,7 +51,7 @@ public class Swagger2Config  {
         return new ApiInfoBuilder()
                 .title("内控后台系统")
                 .description("内控后台管理")
-                .contact(new Contact("张名扬", "www.mycloudenv.com", "zmy@dxct.org"))
+                .contact(new Contact("张名扬", "www.mycloudenv.com", "479978142@qq.com"))
                 .version("1.0").build();
     }
 

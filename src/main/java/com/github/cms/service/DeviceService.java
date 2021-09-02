@@ -53,11 +53,15 @@ public class DeviceService {
             if (StringUtils.isNotBlank(device.getDeviceDes())) {
                 predicatesList.add(cb.like(root.get("deviceDes"), "%" + device.getDeviceDes().trim() + "%"));
             }
-            query.orderBy(cb.asc(root.get("createTime")));
+            query.orderBy(cb.desc(root.get("id")));
             Predicate[] predicates = new Predicate[predicatesList.size()];
             return cb.and(predicatesList.toArray(predicates));
         };
         return deviceRepository.findAll(spec, pageable);
+    }
+
+    public Long deleteDeviceById(Long id){
+       return deviceRepository.deleteDeviceById(id);
     }
 
 

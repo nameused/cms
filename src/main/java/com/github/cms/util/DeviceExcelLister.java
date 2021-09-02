@@ -8,25 +8,27 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 @Component
 public class DeviceExcelLister extends AnalysisEventListener<Device> {
     private static final Logger logger = LoggerFactory.getLogger(DeviceExcelLister.class);
-    public static List<Device> deviceList = new ArrayList<>();
+    //public List<Device> deviceList = new ArrayList<>();
     public DeviceService deviceService;
-//
-//    public DeviceExcelLister(DeviceService deviceService) {
-//        this.deviceService = deviceService;
-//    }
+
+    public DeviceExcelLister(DeviceService deviceService) {
+        this.deviceService = deviceService;
+    }
 
     @Override
     public void invoke(Device device, AnalysisContext analysisContext) {
-        deviceList.add(device);
+     //   deviceList.add(device);
         //根据业务进行测试
-      //  doSomething(device);
+        doSomething(device);
     }
 
     /**
@@ -37,24 +39,28 @@ public class DeviceExcelLister extends AnalysisEventListener<Device> {
      */
     @Override
     public void invokeHeadMap(Map<Integer, String> headMap, AnalysisContext context) {
-        System.out.println("表头：" + headMap);
+        logger.info("表头：" + headMap);
     }
 
 
     /**
      * 插入数据库
      */
-//    public void doSomething(Device device) {
-//        deviceService.saveDevice(device);
-//    }
+    public void doSomething(Device device) {
+        Date date=new Date();
+        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String dateString = simpleDateFormat.format(date);
+        logger.info("-----------------------当前时间-------------------------------------------------"+dateString);
+        device.setCreateTime(date);
+        deviceService.saveDevice(device);
+    }
 
 
     @Override
     public void doAfterAllAnalysed(AnalysisContext analysisContext) {
-        System.out.println("doAfterAllAnalysed----打印-----");
-        for (Device device : deviceList) {
-            logger.info(device.toString());
-            //   deviceService.saveDevice(device);
-        }
+        logger.info("doAfterAllAnalysed----打印-----");
+//        for (Device device : deviceList) {
+//            logger.info(device.toString());
+//        }
     }
 }

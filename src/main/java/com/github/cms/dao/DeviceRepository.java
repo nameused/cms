@@ -19,6 +19,7 @@ import com.github.cms.entity.Device;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 
 /**
@@ -28,4 +29,12 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface DeviceRepository extends JpaSpecificationExecutor<Device>, JpaRepository<Device,Long> {
+    /**
+     * 根据主键ID删除用户信息
+     *
+     * @param id
+     * @return
+     */
+    @Transactional(rollbackFor = Exception.class)
+    Long deleteDeviceById(Long id);
 }

@@ -52,10 +52,26 @@ public class HostController {
         device.setDeviceName(deviceName);
         device.setDeviceAddress(deviceAddress);
         device.setDeviceDes(deviceDes);
+
         logger.info("创建时间：" + createTime);
         Page<Device> deviceList = deviceService.findDeviceListByParam(device, page, count);
         return new CommonResult().pageSuccess(deviceList);
     }
+
+    @ApiOperation("根据id删除设备信息")
+    @DeleteMapping(value = "/deleteDevice/{id}")
+    @ResponseBody
+    public Object deleteDevice(@PathVariable Long id) {
+        logger.info("数据Id：" + id);
+        Long result = deviceService.deleteDeviceById(id);
+        if (result == 1) {
+            logger.info("返回数据：" + result);
+            return new CommonResult().success("删除设备信息成功！");
+        }
+        logger.info("返回数据：" + result);
+        return new CommonResult().failed("删除设备信息失败！");
+    }
+
 
     @ApiOperation("新增虚拟机")
     @RequestMapping(value = "/addVm", method = RequestMethod.POST)
@@ -65,7 +81,7 @@ public class HostController {
         if (vm != null) {
             return new CommonResult().success(vm);
         }
-        return new CommonResult().failed("新增虚拟机失败");
+        return new CommonResult().failed("新增虚拟机失败！");
     }
 
 
@@ -90,19 +106,9 @@ public class HostController {
     @RequestMapping(value = "/importDeviceExcel", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public Object importDeviceExcel(@RequestParam("file") MultipartFile file) {
         if (Strings.isBlank(fileUploadService.fileUpload(file))) {
-            return new CommonResult().failed("文件上传失败");
+            return new CommonResult().failed("文件上传失败！");
         }
-        EasyExcel.read(fileUploadService.fileUpload(file), Device.class, new DeviceExcelLister()).sheet().doRead();
-        for (Device device : DeviceExcelLister.deviceList) {
-            deviceService.saveDevice(device);
-        }
+        EasyExcel.read(fileUploadService.fileUpload(file), Device.class, new DeviceExcelLister(deviceService)).sheet().doRead();
         return new CommonResult().success("文件导入成功！");
     }
-
-//    @ApiOperation("导入设备信息")
-//    @RequestMapping(value = "/importDeviceExcel", method = RequestMethod.POST)
-//    @ResponseBody
-//    public void importDevice() {
-//        EasyExcel.read("D:\\test\\aus\\device.xlsx", Device.class, new DeviceExcelLister()).sheet().doRead();
-//    }
 }
