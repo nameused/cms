@@ -35,17 +35,20 @@ public class VmService {
             if (StringUtils.isNotBlank(vm.getOwner())) {
                 predicatesList.add(cb.like(root.get("owner"), "%" + vm.getOwner().trim() + "%"));
             }
-            query.orderBy(cb.asc(root.get("createTime")));
+            query.orderBy(cb.desc(root.get("id")));
             Predicate[] predicates = new Predicate[predicatesList.size()];
             return cb.and(predicatesList.toArray(predicates));
         };
         return vmRepository.findAll(spec, pageable);
     }
 
-    public Vm saveVm(VmParam vmParam) {
-        Vm vm = new Vm();
-        BeanUtils.copyProperties(vmParam, vm);
+    public Vm saveVm(Vm vm) {
         vmRepository.save(vm);
         return vm;
     }
+
+    public Long deleteVm(Long id) {
+        return vmRepository.deleteVmById(id);
+    }
+
 }

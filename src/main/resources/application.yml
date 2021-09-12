@@ -38,8 +38,10 @@ spring:
       ddl-auto: update
     show-sql: true
 
-upload:
-  defaultFilePath: D:\\test\\upload\\
+file:
+  #defaultFilePath: D:\\test\\upload\\
+  uploadPath: /Users/zmy/document/upload/
+  downloadPath: /Users/zmy/document/download/
 
 
 jwt:

@@ -24,10 +24,19 @@ public class CmsConstant {
     /**
      * 默认用户状态,1为激活,0为禁用
      */
-    public static final int USER_ACTIVE_STATUS=1;
+    public static final int USER_ACTIVE_STATUS = 1;
     /**
      * 用户禁用状态
      */
-    public static final int USER_INACTIVE_STATUS=0;
+    public static final int USER_INACTIVE_STATUS = 0;
+
+    /**
+     * 设备文件模板
+     */
+    public static final String DEVICE_EXCEL_TEMPLATE = "device_template.xlsx";
+    /**
+     * vm文件模板
+     */
+    public static final String VM_EXCEL_TEMPLATE = "vm_template.xlsx";
 
 }

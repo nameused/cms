@@ -17,7 +17,6 @@ import java.util.Map;
 @Component
 public class DeviceExcelLister extends AnalysisEventListener<Device> {
     private static final Logger logger = LoggerFactory.getLogger(DeviceExcelLister.class);
-    //public List<Device> deviceList = new ArrayList<>();
     public DeviceService deviceService;
 
     public DeviceExcelLister(DeviceService deviceService) {
@@ -26,7 +25,6 @@ public class DeviceExcelLister extends AnalysisEventListener<Device> {
 
     @Override
     public void invoke(Device device, AnalysisContext analysisContext) {
-     //   deviceList.add(device);
         //根据业务进行测试
         doSomething(device);
     }
@@ -59,8 +57,5 @@ public class DeviceExcelLister extends AnalysisEventListener<Device> {
     @Override
     public void doAfterAllAnalysed(AnalysisContext analysisContext) {
         logger.info("doAfterAllAnalysed----打印-----");
-//        for (Device device : deviceList) {
-//            logger.info(device.toString());
-//        }
     }
 }
