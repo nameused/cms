@@ -40,8 +40,10 @@ spring:
 
 file:
   #defaultFilePath: D:\\test\\upload\\
-  uploadPath: /Users/zmy/document/upload/
-  downloadPath: /Users/zmy/document/download/
+  uploadPath: D:\\test\\upload\\
+  downloadPath: D:\\test\\download\\
+#  uploadPath: /Users/zmy/document/upload/
+#  downloadPath: /Users/zmy/document/download/
 
 
 jwt:

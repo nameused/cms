@@ -55,6 +55,10 @@ public class FIleUtil {
 
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(contentType))
+                .header(HttpHeaders.PRAGMA,"no-cache")
+                .header(HttpHeaders.CACHE_CONTROL,"no-cache, no-store, must-revalidate")
+                .header(HttpHeaders.ACCEPT_CHARSET,"utf-8")
+                .header(HttpHeaders.EXPIRES,"0")
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
                 .body(resource);
     }

@@ -83,7 +83,7 @@ public class HostController {
 
 
     @ApiOperation("下载设备文件")
-    @GetMapping("/downloadDeviceFile")
+    @PostMapping("/downloadDeviceFile")
     public ResponseEntity<Resource> downloadDeviceFile(HttpServletRequest request) throws IOException {
         return new FIleUtil().downFileTemplate(fileService, CmsConstant.DEVICE_EXCEL_TEMPLATE, request);
     }
