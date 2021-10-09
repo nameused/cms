@@ -18,7 +18,6 @@ package com.github.cms.entity;
 /**
  * @author zhangmingyang
  * @Date: 2020/1/16
- * @company Dingxuan
  */
 public class WebLog {
     /**

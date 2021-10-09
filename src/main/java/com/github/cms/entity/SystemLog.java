@@ -15,10 +15,71 @@
  */
 package com.github.cms.entity;
 
+import java.util.Date;
+
 /**
  * @author zhangmingyang
  * @Date: 2020/11/16
  * @company Dingxuan
  */
 public class SystemLog {
+    private Integer id;
+
+    private String operateor;
+
+    private String operatetype;
+
+    private Date operatedate;
+
+    private String operateresult;
+
+    private String remark;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getOperateor() {
+        return operateor;
+    }
+
+    public void setOperateor(String operateor) {
+        this.operateor = operateor;
+    }
+
+    public String getOperatetype() {
+        return operatetype;
+    }
+
+    public void setOperatetype(String operatetype) {
+        this.operatetype = operatetype;
+    }
+
+    public Date getOperatedate() {
+        return operatedate;
+    }
+
+    public void setOperatedate(Date operatedate) {
+        this.operatedate = operatedate;
+    }
+
+    public String getOperateresult() {
+        return operateresult;
+    }
+
+    public void setOperateresult(String operateresult) {
+        this.operateresult = operateresult;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
 }

@@ -114,7 +114,7 @@ public class HostController {
     }
 
     @ApiOperation("下载Vm文件")
-    @GetMapping("/downloadVmFile")
+    @PostMapping("/downloadVmFile")
     public ResponseEntity<Resource> downloadVmFile(HttpServletRequest request) throws IOException {
         return new FIleUtil().downFileTemplate(fileService, CmsConstant.VM_EXCEL_TEMPLATE, request);
     }
