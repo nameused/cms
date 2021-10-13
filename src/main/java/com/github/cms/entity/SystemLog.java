@@ -15,6 +15,7 @@
  */
 package com.github.cms.entity;
 
+import javax.persistence.*;
 import java.util.Date;
 
 /**
@@ -22,7 +23,11 @@ import java.util.Date;
  * @Date: 2020/11/16
  * @company Dingxuan
  */
+@Entity
+@Table(name = "system_log")
 public class SystemLog {
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer id;
 
     private String operateor;

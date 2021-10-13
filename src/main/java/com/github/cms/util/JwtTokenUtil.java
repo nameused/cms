@@ -23,7 +23,7 @@ import java.util.Map;
  */
 @Component
 public class JwtTokenUtil {
-    private static final Logger LOGGER = LoggerFactory.getLogger(JwtTokenUtil.class);
+    private static final Logger log = LoggerFactory.getLogger(JwtTokenUtil.class);
     private static final String CLAIM_KEY_USERNAME = "sub";
     private static final String CLAIM_KEY_CREATED = "created";
     @Value("${jwt.secret}")
@@ -53,7 +53,7 @@ public class JwtTokenUtil {
                     .parseClaimsJws(token)
                     .getBody();
         } catch (Exception e) {
-            LOGGER.info("JWT格式验证失败:{}",token);
+            log.info("JWT格式验证失败:{}",token);
         }
         return claims;
     }
@@ -87,6 +87,8 @@ public class JwtTokenUtil {
      */
     public boolean validateToken(String token, UserDetails userDetails) {
         String username = getUserNameFromToken(token);
+        log.info("username------------------->:"+username);
+        log.info("获取到的------------------->:"+userDetails.getUsername());
         return username.equals(userDetails.getUsername()) && !isTokenExpired(token);
     }
 

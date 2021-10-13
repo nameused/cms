@@ -1,6 +1,7 @@
 package com.github.cms.controller;
 
 import com.alibaba.excel.EasyExcel;
+import com.github.cms.component.SysLog;
 import com.github.cms.dto.CommonResult;
 import com.github.cms.dto.VmParam;
 import com.github.cms.entity.Device;
@@ -70,6 +71,7 @@ public class HostController {
     @ApiOperation("根据id删除设备信息")
     @PostMapping(value = "/deleteDevice/{id}")
     @ResponseBody
+    @SysLog(operateType = "数据删除",operateContent = "删除设备信息")
     public Object deleteDevice(@PathVariable Long id) {
         logger.info("数据Id：" + id);
         Long result = deviceService.deleteDeviceById(id);

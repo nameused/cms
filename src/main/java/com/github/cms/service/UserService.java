@@ -15,11 +15,14 @@
  */
 package com.github.cms.service;
 
+import com.github.cms.controller.RoleController;
 import com.github.cms.dao.UserRepository;
 import com.github.cms.dto.UserParam;
 import com.github.cms.entity.User;
 import com.github.cms.util.CmsConstant;
 import com.github.cms.util.JwtTokenUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -42,6 +45,7 @@ import java.util.List;
  */
 @Service
 public class UserService {
+    private static final Logger logger = LoggerFactory.getLogger(RoleController.class);
     @Autowired
     private UserRepository userRepository;
     @Autowired
@@ -74,7 +78,6 @@ public class UserService {
         user.setStatus(CmsConstant.USER_ACTIVE_STATUS);
         String md5Password = passwordEncoder.encode(user.getPassword());
         user.setPassword(md5Password);
-        System.out.println(user);
         userRepository.save(user);
         return user;
     }
@@ -97,13 +100,14 @@ public class UserService {
     public String login(String userName, String password) {
         String token = null;
         UserDetails userDetails = userDetailsService.loadUserByUsername(userName);
-        System.out.println(userDetails.getPassword());
         if (!passwordEncoder.matches(password, userDetails.getPassword())) {
             throw new BadCredentialsException("密码不正确");
         }
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
         token = jwtTokenUtil.generateToken(userDetails);
+        logger.info("生成的token："+token);
+
         return token;
     }
 }
