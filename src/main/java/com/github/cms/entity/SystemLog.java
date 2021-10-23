@@ -30,13 +30,15 @@ public class SystemLog {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer id;
 
-    private String operateor;
+    private String operator;
 
-    private String operatetype;
+    private String operateType;
 
-    private Date operatedate;
+    private String operateContent;
 
-    private String operateresult;
+    private Date operateDate;
+
+    private String operateResult;
 
     private String remark;
 
@@ -48,36 +50,44 @@ public class SystemLog {
         this.id = id;
     }
 
-    public String getOperateor() {
-        return operateor;
+    public String getOperator() {
+        return operator;
     }
 
-    public void setOperateor(String operateor) {
-        this.operateor = operateor;
+    public void setOperator(String operator) {
+        this.operator = operator;
     }
 
-    public String getOperatetype() {
-        return operatetype;
+    public String getOperateType() {
+        return operateType;
     }
 
-    public void setOperatetype(String operatetype) {
-        this.operatetype = operatetype;
+    public void setOperateType(String operateType) {
+        this.operateType = operateType;
     }
 
-    public Date getOperatedate() {
-        return operatedate;
+    public String getOperateContent() {
+        return operateContent;
     }
 
-    public void setOperatedate(Date operatedate) {
-        this.operatedate = operatedate;
+    public void setOperateContent(String operateContent) {
+        this.operateContent = operateContent;
     }
 
-    public String getOperateresult() {
-        return operateresult;
+    public Date getOperateDate() {
+        return operateDate;
     }
 
-    public void setOperateresult(String operateresult) {
-        this.operateresult = operateresult;
+    public void setOperateDate(Date operateDate) {
+        this.operateDate = operateDate;
+    }
+
+    public String getOperateResult() {
+        return operateResult;
+    }
+
+    public void setOperateResult(String operateResult) {
+        this.operateResult = operateResult;
     }
 
     public String getRemark() {

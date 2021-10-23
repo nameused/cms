@@ -86,12 +86,14 @@ public class HostController {
 
     @ApiOperation("下载设备文件")
     @PostMapping("/downloadDeviceFile")
+    @SysLog(operateType = "文件下载",operateContent = "设备文件模板下载")
     public ResponseEntity<Resource> downloadDeviceFile(HttpServletRequest request) throws IOException {
         return new FIleUtil().downFileTemplate(fileService, CmsConstant.DEVICE_EXCEL_TEMPLATE, request);
     }
 
 
     @ApiOperation("导入设备信息")
+    @SysLog(operateType = "文件导入",operateContent = "设备文件导入")
     @RequestMapping(value = "/importDeviceExcel", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public Object importDeviceExcel(@RequestParam("file") MultipartFile file) {
         if (Strings.isBlank(fileService.fileUpload(file))) {
@@ -103,6 +105,7 @@ public class HostController {
 
 
     @ApiOperation("新增虚拟机")
+    @SysLog(operateType = "数据新增",operateContent = "新增虚拟机")
     @RequestMapping(value = "/addVm", method = RequestMethod.POST)
     @ResponseBody
     public Object addVm(@RequestBody VmParam vmParam) {
@@ -116,12 +119,14 @@ public class HostController {
     }
 
     @ApiOperation("下载Vm文件")
+    @SysLog(operateType = "文件下载",operateContent = "Vm文件模板下载")
     @PostMapping("/downloadVmFile")
     public ResponseEntity<Resource> downloadVmFile(HttpServletRequest request) throws IOException {
         return new FIleUtil().downFileTemplate(fileService, CmsConstant.VM_EXCEL_TEMPLATE, request);
     }
 
     @ApiOperation("导入Vm信息")
+    @SysLog(operateType = "文件导入",operateContent = "Vm文件导入")
     @PostMapping(value = "/importVmExcel", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public Object importVmExcel(@RequestParam("file") MultipartFile file) {
         if (Strings.isBlank(fileService.fileUpload(file))) {
@@ -132,6 +137,7 @@ public class HostController {
     }
 
     @ApiOperation("根据id删除Vm信息")
+    @SysLog(operateType = "数据删除",operateContent = "Vm信息删除")
     @PostMapping(value = "/deleteVm/{id}")
     public Object deleteVm(@PathVariable Long id) {
         Long result = vmService.deleteVm(id);

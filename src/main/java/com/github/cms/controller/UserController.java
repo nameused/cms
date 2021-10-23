@@ -15,6 +15,7 @@
  */
 package com.github.cms.controller;
 
+import com.github.cms.component.SysLog;
 import com.github.cms.dto.CommonResult;
 import com.github.cms.dto.UserLoginParam;
 import com.github.cms.dto.UserParam;
@@ -43,7 +44,6 @@ import java.util.Map;
  *
  * @author zhangmingyang
  * @Date: 2020/1/6
- * @company Dingxuan
  */
 @RestController
 @Api(tags = "UserController", description = "用户管理")
@@ -104,6 +104,7 @@ public class UserController {
      */
     @ApiOperation("用户登录")
     @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @SysLog(operateType = "登录",operateContent = "用户登录")
     @ResponseBody
     public Object login(@RequestBody UserLoginParam userLoginParam, BindingResult result) {
         String token = userService.login(userLoginParam.getUsername(), userLoginParam.getPassword());
@@ -112,8 +113,8 @@ public class UserController {
         }
         Map<String, String> tokenMap = new HashMap<>();
         tokenMap.put("token", token);
-        LOGGER.info("token----------------------------->"+token);
-        LOGGER.info("tokenHead----------------------------->"+tokenHead);
+        LOGGER.info("token----------------------------->" + token);
+        LOGGER.info("tokenHead----------------------------->" + tokenHead);
         tokenMap.put("tokenHead", tokenHead);
         return new CommonResult().success(tokenMap);
     }
@@ -137,6 +138,7 @@ public class UserController {
 
     @ApiOperation(value = "登出功能")
     @RequestMapping(value = "/logout", method = RequestMethod.POST)
+    @SysLog(operateType = "登出",operateContent = "用户登出")
     @ResponseBody
     public Object logout() {
         return new CommonResult().success(null);
@@ -144,6 +146,7 @@ public class UserController {
 
     @ApiOperation("删除用户")
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
+    @SysLog(operateType = "删除",operateContent = "用户信息删除")
     @ResponseBody
     public Object delete(@PathVariable Long id) {
         Long count = userService.deleteUserById(id);
@@ -153,6 +156,7 @@ public class UserController {
 
     @ApiOperation("更新用户状态")
     @RequestMapping(value = "/update", method = RequestMethod.POST)
+    @SysLog(operateType = "更新",operateContent = "用户状态更新")
     @ResponseBody
     public Object updataUserStatus(@RequestParam Long id, @RequestParam Integer status) {
         Integer count = null;

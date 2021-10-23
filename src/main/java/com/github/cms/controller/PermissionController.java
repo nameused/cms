@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * @author zhangmingyang
  * @Date: 2020/1/22
- * @company Dingxuan
  */
 @RestController
 public class PermissionController {

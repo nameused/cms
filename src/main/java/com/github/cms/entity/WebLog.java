@@ -15,11 +15,13 @@
  */
 package com.github.cms.entity;
 
+import java.io.Serializable;
+
 /**
  * @author zhangmingyang
  * @Date: 2020/1/16
  */
-public class WebLog {
+public class WebLog implements Serializable {
     /**
      * 操作描述
      */
